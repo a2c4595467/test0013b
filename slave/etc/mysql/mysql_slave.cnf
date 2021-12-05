@@ -1,0 +1,12 @@
+[mysqld]
+server-id=2
+read_only
+gtid-mode=ON
+enforce-gtid-consistency=ON
+default-time-zone='+9:00'
+
+#character-set-server=utf8
+#collation-server=utf8_general_ci
+
+[client]
+#default-character-set=utf8

@@ -1,0 +1,12 @@
+[mysqld]
+log-bin
+server-id=1
+gtid-mode=ON
+enforce-gtid-consistency=ON
+default-time-zone='+9:00'
+
+#character-set-server=UTF8MB4
+#collation-server=UTF8MB4
+
+[client]
+#default-character-set=UTF8MB4
