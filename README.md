@@ -6,11 +6,11 @@
 (グループレプリケーションではないです)
 <br>
 
+
 ## 参考URL
 ### ※MySQL5.7 と 8.0 では仕様変更があるので、参考URL先をそのままコピーできないので注意すること。
 
 <br>
-
 
 DockerでMySQLのリードレプリカを作成する  
 https://www.seeds-std.co.jp/blog/creators/2020-12-17-145757/
@@ -24,7 +24,8 @@ https://ngyuki.hatenablog.com/entry/2019/02/18/103036
 <br>
 
 
-docker-compose MySQL8.0 のDBコンテナを作成するhttps://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
+docker-compose MySQL8.0 のDBコンテナを作成する
+https://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
 
 <br>
 
@@ -106,8 +107,10 @@ flush privileges;
 MySQLのmaster slave構成をDockerで試す
 https://raahii.github.io/posts/docker-mysql-master-slave-replication/
 
+<br>
 
---------------------------------------------
+---
+
 ### ●MySQL8.0のレプリケーションについて
 
 **5.7と8.0では変更されている箇所が多い。**
@@ -143,7 +146,9 @@ https://blog.s-style.co.jp/2020/03/5861/
 ＭｙＳＱＬ８．０のインストールと初期セットアップ
 https://qiita.com/nanorkyo/items/94a80683c6753f61316a#fn7
 
-----------------------------------
+<br>
+
+---
 
 ### ●コンテナの日本語対応
 
