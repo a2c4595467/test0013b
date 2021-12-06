@@ -18,13 +18,13 @@ https://www.seeds-std.co.jp/blog/creators/2020-12-17-145757/
 <br>
 
 
-docker-compose で MySQL レプリケーション環境をサクッと用意する
+docker-compose で MySQL レプリケーション環境をサクッと用意する  
 https://ngyuki.hatenablog.com/entry/2019/02/18/103036
 
 <br>
 
 
-docker-compose MySQL8.0 のDBコンテナを作成する
+docker-compose MySQL8.0 のDBコンテナを作成する  
 https://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
 
 <br>
@@ -33,9 +33,20 @@ https://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
 
 ## ■対応
 
-<br>
+### ●環境
 
-### ディレクトリ構成
+- ホスト
+  - Windows10
+  - Vagrant
+  - VirtualBox
+
+- ゲスト
+  - Ubuntu 20.04
+
+
+### ●ディレクトリ構成
+
+以下の内容のディレクトリをホスト側に設置し、Vagrant の共有機能でゲスト側と連携。
 
 ```
 .
@@ -65,7 +76,6 @@ https://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
 ### ●起動のエラー
 ```
 mysqld: [Warning] World-writable config file '/etc/mysql/conf.d/mysql_read.cnf' is ignored.   
-
 mysqld: [Warning] World-writable config file '/etc/mysql/conf.d/mysql_source.cnf' is ignored.
 ```
 ↓↓  
@@ -82,29 +92,27 @@ RUN mkdir /var/lib/mysql-files
 
 ### ●entrypointのシェルスクリプトファイル
 
-今回はマスターに[001-GRANT_REPLICATION.sh]、スレイブに  
-[001-START_REPLICA.sh]を
-用意しているが、拡張子は小文字にしておかないと実行されない。
-また、有効な拡張子は「.sh」「.sql」「.sql.gz」
+今回はマスターに **001-GRANT_REPLICATION.sh** を、スレイブに **001-START_REPLICA.sh** を用意しているが、拡張子は小文字にしておかないと実行されない。  
+また、有効な拡張子は「.sh」「.sql」「.sql.gz」  
 
-・参考URL
-Docker MySQLコンテナ起動時に初期データを投入する
+・参考URL  
+Docker MySQLコンテナ起動時に初期データを投入する  
 https://qiita.com/NagaokaKenichi/items/ae037963b33a85df33f5
 
 
 ### ●MySQLのレプリケーションユーザー作成
 
-・master, slave共に bind-addressを0.0.0.0として、dockerのネットワークエイリアスで繋ぐ
-・masterのMySQLにレプリケーション用のユーザーを作成するが、MySQL8.0ではGRANT構文での
-　ユーザを作成できない
+・master, slave共に bind-addressを0.0.0.0として、dockerのネットワークエイリアスで繋ぐ。  
+・masterのMySQLにレプリケーション用のユーザーを作成するが、MySQL8.0ではGRANT構文でのユーザを作成できない。
 
+```
 create user 'slave_user'@'%' identified by 'password';
 grant replication slave on *.* to 'slave_user'@'%' with grant option;
 flush privileges;
-
+```
 
 ・参考URL
-MySQLのmaster slave構成をDockerで試す
+MySQLのmaster slave構成をDockerで試す  
 https://raahii.github.io/posts/docker-mysql-master-slave-replication/
 
 <br>
@@ -140,10 +148,10 @@ MySQL8から「caching_sha2_password」認証プラグインがデフォルト�
 ```
 
 ・参考URL  
-MySQL8.0で新たに追加されているレプリケーション接続オプション
+MySQL8.0で新たに追加されているレプリケーション接続オプション  
 https://blog.s-style.co.jp/2020/03/5861/
 
-ＭｙＳＱＬ８．０のインストールと初期セットアップ
+ＭｙＳＱＬ８．０のインストールと初期セットアップ  
 https://qiita.com/nanorkyo/items/94a80683c6753f61316a#fn7
 
 <br>
@@ -172,7 +180,7 @@ RUN { \
 ```
 
 参考URL  
-MacでDocker上に日本語環境のMySQL8.0を建てる
+MacでDocker上に日本語環境のMySQL8.0を建てる  
 https://qiita.com/oono_yoshi/items/4c9c2ea554b5626ff50c
 
 <br>
@@ -181,8 +189,7 @@ https://qiita.com/oono_yoshi/items/4c9c2ea554b5626ff50c
 
 ## ■dbeaverでDB接続
 
-ホストOS上のdbeaverからコンテナのMySQLへ接続する際に「Publick Key Retrieval is not allowed」エラーが表示される。
-
+ホストOS上のdbeaverからコンテナのMySQLへ接続する際に「Publick Key Retrieval is not allowed」エラーが表示される。  
 接続先プロファイルのドライバー設定から「allowPublicKeyRetrieval」をtrueにする必要がある。
 
 <br>
