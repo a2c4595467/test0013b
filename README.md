@@ -35,9 +35,20 @@ https://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
 
 ## ■対応
 
-<br>
+### ●環境
 
-### ディレクトリ構成
+- ホスト
+  - Windows10
+  - Vagrant
+  - VirtualBox
+
+- ゲスト
+  - Ubuntu 20.04
+
+
+### ●ディレクトリ構成
+
+以下の内容のディレクトリをホスト側に設置し、Vagrant の共有機能でゲスト側と連携。
 
 ```
 .
@@ -67,7 +78,6 @@ https://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
 ### ●起動のエラー
 ```
 mysqld: [Warning] World-writable config file '/etc/mysql/conf.d/mysql_read.cnf' is ignored.   
-
 mysqld: [Warning] World-writable config file '/etc/mysql/conf.d/mysql_source.cnf' is ignored.
 ```
 ↓↓  
@@ -84,10 +94,8 @@ RUN mkdir /var/lib/mysql-files
 
 ### ●entrypointのシェルスクリプトファイル
 
-今回はマスターに[001-GRANT_REPLICATION.sh]、スレイブに  
-[001-START_REPLICA.sh]を
-用意しているが、拡張子は小文字にしておかないと実行されない。
-また、有効な拡張子は「.sh」「.sql」「.sql.gz」
+今回はマスターに **001-GRANT_REPLICATION.sh** を、スレイブに **001-START_REPLICA.sh** を用意しているが、拡張子は小文字にしておかないと実行されない。  
+また、有効な拡張子は「.sh」「.sql」「.sql.gz」  
 
 ・参考URL
 Docker MySQLコンテナ起動時に初期データを投入する<br>
@@ -183,8 +191,7 @@ https://qiita.com/oono_yoshi/items/4c9c2ea554b5626ff50c
 
 ## ■dbeaverでDB接続
 
-ホストOS上のdbeaverからコンテナのMySQLへ接続する際に「Publick Key Retrieval is not allowed」エラーが表示される。
-
+ホストOS上のdbeaverからコンテナのMySQLへ接続する際に「Publick Key Retrieval is not allowed」エラーが表示される。  
 接続先プロファイルのドライバー設定から「allowPublicKeyRetrieval」をtrueにする必要がある。
 
 <br>
