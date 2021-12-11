@@ -2,29 +2,31 @@
 
 ## 目的
 
-これはdocker-compose を使ってMySQL8のレプリケーションを学習するためのものです。  
+これはdocker-compose を使ってMySQL8のレプリケーションを学習するためのものです。<br>
 (グループレプリケーションではないです)
 <br>
 
 
+
 ## 参考URL
-### ※MySQL5.7 と 8.0 では仕様変更があるので、参考URL先をそのままコピーできないので注意すること。
+
+※先人たちの知恵に敬意と多謝。<br>
+※MySQL5.7 と 8.0 では仕様変更があるので、参考URL先をそのままコピーできないので注意すること。
 
 <br>
 
-DockerでMySQLのリードレプリカを作成する  
+DockerでMySQLのリードレプリカを作成する<br>
 https://www.seeds-std.co.jp/blog/creators/2020-12-17-145757/
 
 <br>
 
-
-docker-compose で MySQL レプリケーション環境をサクッと用意する
+docker-compose で MySQL レプリケーション環境をサクッと用意する<br>
 https://ngyuki.hatenablog.com/entry/2019/02/18/103036
 
 <br>
 
 
-docker-compose MySQL8.0 のDBコンテナを作成する
+docker-compose MySQL8.0 のDBコンテナを作成する<br>
 https://qiita.com/ucan-lab/items/b094dbfc12ac1cbee8cb
 
 <br>
@@ -69,7 +71,7 @@ mysqld: [Warning] World-writable config file '/etc/mysql/conf.d/mysql_read.cnf' 
 mysqld: [Warning] World-writable config file '/etc/mysql/conf.d/mysql_source.cnf' is ignored.
 ```
 ↓↓  
-ネットでは、ホスト側でファイルをリードオンリーにするとDocker側で動くと説明する記事があったが、動かない。
+ネットでは、ホスト側でファイルをリードオンリーにするとDocker側で動くと説明する記事があったが、動かない。<br>
 実際は、Dockerfile内に COPY を使ってコンテナ内へコピーする必要がある。
 
 ```
@@ -88,23 +90,24 @@ RUN mkdir /var/lib/mysql-files
 また、有効な拡張子は「.sh」「.sql」「.sql.gz」
 
 ・参考URL
-Docker MySQLコンテナ起動時に初期データを投入する
+Docker MySQLコンテナ起動時に初期データを投入する<br>
 https://qiita.com/NagaokaKenichi/items/ae037963b33a85df33f5
 
 
 ### ●MySQLのレプリケーションユーザー作成
 
-・master, slave共に bind-addressを0.0.0.0として、dockerのネットワークエイリアスで繋ぐ
-・masterのMySQLにレプリケーション用のユーザーを作成するが、MySQL8.0ではGRANT構文での
+- master, slave共に bind-addressを0.0.0.0として、dockerのネットワークエイリアスで繋ぐ
+- masterのMySQLにレプリケーション用のユーザーを作成するが、MySQL8.0ではGRANT構文での
 　ユーザを作成できない
 
+```
 create user 'slave_user'@'%' identified by 'password';
 grant replication slave on *.* to 'slave_user'@'%' with grant option;
 flush privileges;
-
+```
 
 ・参考URL
-MySQLのmaster slave構成をDockerで試す
+MySQLのmaster slave構成をDockerで試す<br>
 https://raahii.github.io/posts/docker-mysql-master-slave-replication/
 
 <br>
@@ -133,17 +136,16 @@ MySQL8から「caching_sha2_password」認証プラグインがデフォルト�
 「安全な接続」はmaster/slaveにSSL証明書を作成する必要がある。  
 今回は、「RSAベースのパスワード交換」を行う
 
-記述
 ```
-    MASTER_SSL = 1,
-    GET_MASTER_PUBLIC_KEY = 1; \
+MASTER_SSL = 1,
+GET_MASTER_PUBLIC_KEY = 1; \
 ```
 
 ・参考URL  
-MySQL8.0で新たに追加されているレプリケーション接続オプション
+MySQL8.0で新たに追加されているレプリケーション接続オプション<br>
 https://blog.s-style.co.jp/2020/03/5861/
 
-ＭｙＳＱＬ８．０のインストールと初期セットアップ
+ＭｙＳＱＬ８．０のインストールと初期セットアップ<br>
 https://qiita.com/nanorkyo/items/94a80683c6753f61316a#fn7
 
 <br>
@@ -172,7 +174,7 @@ RUN { \
 ```
 
 参考URL  
-MacでDocker上に日本語環境のMySQL8.0を建てる
+MacでDocker上に日本語環境のMySQL8.0を建てる<br>
 https://qiita.com/oono_yoshi/items/4c9c2ea554b5626ff50c
 
 <br>
